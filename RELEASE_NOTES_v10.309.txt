@@ -1,0 +1,14 @@
+MIW v10.309 — Onconomics Booklet Recovery + METASTAT Ranking
+
+Fixes
+- Patient Booklet CTC builder now scans all patient-linked Onconomics-shaped rows, not only VERIFIED rows.
+- If Onconomics rows are readable in the laboratory/specialized layer but no formal oncoReport envelope exists yet, the Booklet can still recover and render an Onconomics Plus section.
+- Refresh path now uses the full patient row set for CTC/Onconomics recovery while keeping the general-lab booklet pages limited to VERIFIED rows.
+
+UI/Booklet Improvements
+- METASTAT reader page now shows an easy-to-read ranking of organ destinations from strongest support pattern to weakest.
+- CTC executive summary now shows a short “METASTAT อ่านเร็ว” line when METASTAT data exist.
+- Added lightweight layout styles for the METASTAT ranking cards.
+
+Notes
+- METASTAT ranking is a reading aid only. It does not prove true metastatic spread and must be confirmed with imaging/pathology.

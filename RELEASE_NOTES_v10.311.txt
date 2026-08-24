@@ -1,0 +1,16 @@
+MIW v10.311 — Separate Upload Aggregation
+
+Primary fix
+- Onconomics Plus, METASTAT and OncoTrail can be uploaded as separate PDF files and still appear together in one Patient Booklet when patient identity matches.
+- Standalone Onconomics now keeps the upload document as parentDocumentId, the same relationship used by merged PDFs.
+- RGCC Vial is no longer treated as HN/MRN. It is stored as specimenVial only.
+- Patient Booklet expands linked patient IDs across independent documents using safe identity evidence: shared HN/MRN, compatible name + DOB, or unique exact full-name fallback when one source omits DOB/HN.
+
+Why v10.310 failed
+- The merged-PDF path forced Onconomics and METASTAT under one parent patientId, so combined Booklet worked.
+- Standalone Onconomics could be re-resolved independently (and RGCC Vial was mistakenly passed as HN), leaving assays under sibling patient records; Booklet then showed only one assay.
+
+Regression expectations
+- Separate Onconomics PDF + separate METASTAT PDF for the same patient => one Booklet with both reports.
+- Merged PDF workflow remains supported.
+- Different-patient records are not joined by date alone.

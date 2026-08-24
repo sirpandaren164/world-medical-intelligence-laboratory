@@ -1,0 +1,10 @@
+MIW v10.312 — Additional Drug Source Fidelity + Separate Upload Aggregation
+
+1) เปิด index.html ด้วย Chrome หรือ Edge
+2) ใช้ฐานข้อมูลเดิมได้ ไม่ต้องลบข้อมูลเดิม
+3) Onconomics Plus + METASTAT ที่อัปโหลดแยกไฟล์ยังรวมใน Patient Booklet เดียวกันได้เหมือน v10.311
+4) Additional tested drugs/substances จะเก็บครบ: ชื่อสาร, Class, VALUE W/O SUBSTANCE, VALUE WITH SUBSTANCE และ EFFICACY
+5) ฐานเดิมที่เคยอ่านชื่อ Additional ผิด เช่น "WITH SUBSTANCE EFFICACY ..." หรือ "tinib" จะพยายาม reparse จาก stored Onconomics pages อัตโนมัติเมื่อสร้างรูปเล่ม
+6) ถ้า stored source pages ไม่ครบ ให้ upload Onconomics Plus ต้นฉบับอีกครั้งหนึ่ง แล้วสร้างรูปเล่มใหม่
+
+Regression test: ARNNOP VANAPRASERT page 16 — Additional 5/5 rows PASS.
