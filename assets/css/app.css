@@ -2299,3 +2299,26 @@ button.detail-category-snapshot-row:hover,button.detail-category-snapshot-row:fo
 .booklet-metastat-rank-card.primary{border-width:2px;background:#f4fbfa}
 .booklet-metastat-rank-card.rank-1{box-shadow:0 3px 12px rgba(15,118,110,.12)}
 .booklet-metastat-rank-card.primary h3::after{content:" · PRIMARY";font-size:10px;letter-spacing:.05em;color:#0f766e}
+
+
+/* v10.313 — METASTAT source-truth presentation */
+.booklet-metastat-ranking.source-truth{margin-top:14px;padding:12px 14px;border:1px solid #d9dee6;border-radius:14px;background:#f8fafc}
+.booklet-metastat-subhead{margin:10px 0 7px;font-size:14px;color:#40515c}
+.booklet-metastat-source-card{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid #d9dee6;border-radius:12px;background:#fff}
+.booklet-metastat-source-card>span{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:30px;border-radius:999px;background:#68777f;color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em}
+.booklet-metastat-source-card.primary{border-width:2px}
+.booklet-metastat-source-card.primary>span{background:#0f766e}
+.booklet-metastat-source-card h3{margin:0 0 4px;font-size:16px}
+.booklet-metastat-source-card p{margin:0 0 4px}
+.booklet-metastat-source-card small{display:block;color:#52606d}
+
+
+/* v10.314 — dual PDF export hierarchy */
+#bookletPrintButton{font-weight:800}
+#bookletClinicalPrintButton{font-weight:700}
+.booklet-builder-actions #bookletPrintButton,.booklet-builder-actions #bookletClinicalPrintButton{min-width:210px}
+
+/* v10.315 — FoodPrint Source Truth Guard */
+.booklet-export-status.blocked{border-color:#d7a5a0;background:#fff0ef;color:#8a2f27}
+.booklet-builder-actions .booklet-export-blocked{border-color:#c55b50!important;background:#fff0ef!important;color:#8a2f27!important;opacity:.72}
+.booklet-safety-box.source-truth{border-color:#8fc9bd;background:#eef9f6}

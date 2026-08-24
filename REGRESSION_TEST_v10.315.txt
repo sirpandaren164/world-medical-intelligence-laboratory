@@ -1,0 +1,31 @@
+MIW v10.315 — FoodPrint Source Truth Guard Regression
+
+PASS — Catalog geometry
+P1: 36 / 36 / 35 rows
+P2: 39 / 39 / 37 rows
+Total: 222 rows
+
+PASS — Critical source labels
+P1-C1-R12 = แห้วไทย
+P1-C1-R13 = นมวัว
+P1-C1-R14 = อ้อย
+P1-C1-R27 = เนื้อวัว (Ox)
+P1-C1-R28 = แฟง (ผักในตระกูลน้ำเต้า)
+P1-C1-R29 = นกกระจอกเทศ
+P1-C1-R30 = รำข้าวสาลี
+P2-C1-R25 = น้ำผึ้ง
+P2-C2-R16 = ผลกีวี
+P2-C2-R39 = ยี่หร่า
+
+PASS — Legacy v10.314 physical-page repair
+Synthetic P11/P12 legacy keys: 222/222 corrected to P1/P2 catalog names.
+Unresolved rows: 0
+
+PASS — JavaScript syntax
+All JS modules passed node --check.
+
+Guard behavior
+- New FoodPrint imports require exactly 222 position rows and catalog-verified names.
+- Existing stored FoodPrint rows are repaired on Patient Booklet load when foodIntoleranceItemKey is present.
+- Full Report and Clinical Summary consume the same repaired canonical rows.
+- Export is blocked if FoodPrint rows exist but any row cannot be mapped to the verified catalog.

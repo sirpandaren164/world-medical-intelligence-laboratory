@@ -2595,32 +2595,297 @@ MIW.LabEngine=(function(){
    for(const char of String(raw||"")){hash^=char.codePointAt(0);hash=Math.imul(hash,16777619)}
    return(hash>>>0).toString(36)
  }
- const FOODPRINT_PRIORITY_NAMES={
-   "1-1-1":"ไข่ขาว",
-   "1-1-2":"ถั่วโคล่า (ใช้ทำเครื่องดื่มแป๊บซี่, โค้ก หรือขนมหวาน)",
-   "1-1-3":"ถั่วลันเตา","1-1-4":"ถั่วขาว","1-1-5":"ข้าวโอ๊ต",
-   "1-1-6":"เมล็ดอัลมอนด์","1-1-7":"แครนเบอร์รี่",
-   "1-1-8":"ยีสต์สำหรับทำขนมปัง","1-1-9":"ผงวุ้น",
-   "1-1-10":"มันฝรั่ง","1-1-11":"ส้ม",
-   "1-2-1":"ผักคื่นช่ายฝรั่ง","1-2-2":"ข้าวโพด","1-2-3":"ถั่วแดง",
-   "1-2-4":"สาหร่ายวากาเมะ","1-2-5":"บริเวอร์ยีสต์ (เป็นยีสต์ที่ใช้หมักเครื่องดื่ม)",
-   "1-2-6":"สควอช (ผักบัตเตอร์นัท)","1-2-7":"ถั่วบราซิล",
-   "1-2-8":"เมล็ดแครอบ","1-2-9":"ข้าวบัควีท",
-   "1-2-10":"ใบมินต์","1-2-11":"ถั่วพิสตาชิโอ",
-   "1-3-1":"หอยโข่ง","1-3-2":"แป้งไกลอะดิน*",
-   "1-3-3":"ข้าวบาร์เลย์ ใช้ในอุตสาหกรรมผลิตเหล้าและเบียร์",
-   "1-3-4":"ข้าวมอลต์","1-3-5":"เมล็ดโกโก้ (ใช้ทำช็อคโกแลต)",
-   "1-3-6":"เมล็ดทานตะวัน","1-3-7":"ไข่แดง",
-   "1-3-8":"พริกหยวก (เขียว/แดง/เหลือง)","1-3-9":"มะละกอ",
-   "1-3-10":"พาสเลย์",
-   // Page 2 left column row 25 is visually printed as น้ำผึ้ง.
-   // Keep this coordinate template so a weak Thai OCR pass never leaks P2-C1-R25 into the patient booklet.
-   "2-1-25":"น้ำผึ้ง",
-   // Rows verified directly against the two-page FoodPrint source in the
-   // nutrition packet. These labels are small/low-contrast and can disappear
-   // from an otherwise successful Thai OCR pass.
-   "1-3-32":"กุ้ง","2-2-16":"ผลกีวี","2-2-39":"ยี่หร่า"
- };
+ const FOODPRINT_SOURCE_TRUTH_BUILD="2026-08-24-foodprint-200-plus-th-v2";
+ const FOODPRINT_PROVENANCE_BUILD="2026-08-24-foodprint-provenance-v2";
+ const FOODPRINT_CATALOG_FIDELITY_BUILD="2026-08-24-foodprint-catalog-fidelity-v1";
+ const FOODPRINT_SOURCE_TRUTH_CATALOG=Object.freeze({
+  "1": [
+    [
+      "ไข่ขาว",
+      "ถั่วโคล่า (ใช้ทำเครื่องดื่มแป๊บซี่, โค้ก หรือขนมหวาน)",
+      "ถั่วลันเตา",
+      "ถั่วขาว",
+      "ข้าวโอ๊ต",
+      "เมล็ดอัลมอนด์",
+      "แครนเบอร์รี่",
+      "ยีสต์สำหรับทำขนมปัง",
+      "ผงวุ้น",
+      "มันฝรั่ง",
+      "ส้ม",
+      "แห้วไทย",
+      "นมวัว",
+      "อ้อย",
+      "แป้งไรย์",
+      "ลูกพลัม",
+      "อมารันทธ์",
+      "เห็ด",
+      "มะม่วงหิมพานต์",
+      "หมึกกล้วย",
+      "นมแพะ",
+      "ถั่วเลนทิล",
+      "หัวไชเท้า",
+      "แป้งสเปลท์",
+      "ถั่วเหลือง",
+      "ถั่ววอลนัท",
+      "เนื้อวัว (Ox)",
+      "แฟง (ผักในตระกูลน้ำเต้า)",
+      "นกกระจอกเทศ",
+      "รำข้าวสาลี",
+      "เกาลัด",
+      "เคซีน (โปรตีนจากนม)",
+      "เครื่องแกง",
+      "เนื้อเป็ด",
+      "เนื้อแกะ",
+      "เนื้อแพะ"
+    ],
+    [
+      "ผักคื่นช่ายฝรั่ง",
+      "ข้าวโพด",
+      "ถั่วแดง",
+      "สาหร่ายวากาเมะ",
+      "บรูเวอร์ยีสต์ (เป็นยีสต์ที่ใช้หมักเครื่องดื่ม)",
+      "สควอช (ผักบัตเตอร์นัท)",
+      "ถั่วบราซิล",
+      "เมล็ดแครอบ",
+      "ข้าวบัควีท",
+      "ใบมินต์",
+      "ถั่วพิสตาชิโอ",
+      "เนื้อไก่",
+      "เนื้อกระต่าย",
+      "เนื้อกวาง",
+      "เนื้อนกกระทา",
+      "เนื้อปู",
+      "เนื้อมะพร้าว, มะพร้าว",
+      "เนื้อม้า",
+      "เนื้อลูกวัว",
+      "เนื้อวัว (Beef)",
+      "เนื้อหมู",
+      "เนื้อหมูป่า",
+      "เบต้าแลกโตกลอบูลิน",
+      "เมล็ดเคเปอร์",
+      "เมล็ดแฟลกซ์",
+      "เมล็ดแอนนิ",
+      "เมล็ดมัสตาร์ด",
+      "เมล่อน (แตงไทย/แตงตาล)",
+      "เรดเคอร์เรนท์",
+      "เรปซีด (พืชในตระกูลมัสตาร์ด)",
+      "แครอท",
+      "แตงโม",
+      "แตงกวา",
+      "แบล็คเคอร์เรนท์",
+      "แบล็คเบอร์รี่",
+      "แป้งมันสำปะหลัง"
+    ],
+    [
+      "หอยโข่ง",
+      "แป้งไกลอะดิน*",
+      "ข้าวบาร์เลย์ ใช้ในอุตสาหกรรมผลิตเหล้าและเบียร์",
+      "ข้าวมอลต์",
+      "เมล็ดโกโก้ (ใช้ทำช็อคโกแลต)",
+      "เมล็ดทานตะวัน",
+      "ไข่แดง",
+      "พริกหยวก (เขียว/แดง/เหลือง)",
+      "มะละกอ",
+      "พาสเลย์",
+      "แปะก๊วย",
+      "แอปเปิ้ล",
+      "โพเลนต้า (แป้งข้าวโพด ใช้ทำอาหารหรือของหวาน)",
+      "โรสแมรี่",
+      "โสม",
+      "ใบแฟนเนล",
+      "ใบแทรากอน",
+      "ใบโหระพา",
+      "ใบกระวาน",
+      "ใบผักชี",
+      "ใบสะระแหน่",
+      "ไก่งวง",
+      "ไข่ปลาคาร์เวียร์",
+      "กระเทียม",
+      "กล้วย",
+      "กะหล่ำดอก",
+      "กะหล่ำดาว",
+      "กะหล่ำปลี",
+      "กะหล่ำปลีแดง",
+      "กาแฟ",
+      "กานพลู",
+      "กุ้ง",
+      "กุ้งมังกร",
+      "ข้าวเจ้า",
+      "ข้าวฟ่าง (ข้าวเดือย)"
+    ]
+  ],
+  "2": [
+    [
+      "ข้าวสาลี",
+      "ข้าวสาลีดูรัม",
+      "ขิง",
+      "ควินัว",
+      "คาร์โมมายด์ (เก๊กฮวย)",
+      "คูสคูส",
+      "งา",
+      "ชะเอม",
+      "ชาเขียว",
+      "ชาดำ",
+      "ต้นหอมญี่ปุ่น",
+      "ตำแย",
+      "ถั่วแขก",
+      "ถั่วแมคคาเดเมียร์",
+      "ถั่วชิคพี",
+      "ถั่วปากอ้า",
+      "ถั่วลิสง",
+      "ถั่วฮาเซลนัท",
+      "ทรานซ์กลูตามิเนส",
+      "ทับทิม",
+      "ทายม์",
+      "นกกระทาดง",
+      "นมแกะ",
+      "นมควาย",
+      "น้ำผึ้ง",
+      "บร็อคโคลี่",
+      "บลูเบอร์รี่",
+      "บาร์นะเคิล",
+      "ปลาเทราท์",
+      "ปลาเทอบ็ท",
+      "ปลาเพิร์ช",
+      "ปลาเฮค",
+      "ปลาแซลมอน",
+      "ปลาแบส",
+      "ปลาแมคเคอเรล",
+      "ปลาแอนโชวี่",
+      "ปลาแฮดด็อค",
+      "ปลาแฮร์ริ่ง",
+      "ปลาไพค"
+    ],
+    [
+      "ปลาไหล",
+      "ปลากระโทงดาบ",
+      "ปลาคอด",
+      "ปลาคาร์พ",
+      "ปลาซาร์ดีน",
+      "ปลาตาเดียว",
+      "ปลาทรายแดง",
+      "ปลาทรายขาว",
+      "ปลาทูน่า",
+      "ปลามังก์",
+      "ปลาลิ้นหมา",
+      "ปลาหมึกยักษ์",
+      "ปวยเล้ง",
+      "ผลเชอร์รี่",
+      "ผลแอปริคอท",
+      "ผลกีวี",
+      "ผลมัลเบอร์รี่",
+      "ผลส้มจีน (ผลส้มเปลือกหนา)",
+      "ผลอินทผลัม",
+      "ผักกาดหอม",
+      "ผักชาร์ท",
+      "ผักชิโคลี่",
+      "ผักชีลาว",
+      "ผักรอกเก็ต",
+      "ฝรั่ง",
+      "พริกแดง",
+      "พริกไทย (ดำ/ขาว)",
+      "พริกป่น",
+      "มะเขือเทศ",
+      "มะเขือม่วง",
+      "มะเดื่อฝรั่ง",
+      "มะกอก",
+      "มะนาวเปลือกบางใช้ในการประกอบอาหาร",
+      "มะนาวมีผลโตเปลือกหนา ผลสีเหลือง",
+      "มะม่วง",
+      "มันเทศ",
+      "มันสำปะหลัง",
+      "มาเจอแรม (พืชจำพวกมินต์)",
+      "ยี่หร่า"
+    ],
+    [
+      "ราสเบอร์รี่",
+      "รูบาร์บ",
+      "ลิ้นจี่",
+      "ลูกเกด",
+      "ลูกแพร์",
+      "ลูกจันทน์เทศ",
+      "ลูกท้อ",
+      "ลูกพีช",
+      "ลูกสน",
+      "ลูกฮ็อพ (ใช้ในการทำเบียร์)",
+      "วนิลลา",
+      "วอเตอร์เครส",
+      "ว่านหางจระเข้",
+      "สตรอเบอร์รี่",
+      "ส้มโอ",
+      "สมุนไพรเซจ",
+      "สับปะรด",
+      "สาหร่ายเอสสปาเก็ตตี้",
+      "สาหร่ายสไปรูลิน่า",
+      "หญ้าฝรั่น",
+      "หน่อไม้ฝรั่ง",
+      "หมึกกระดอง",
+      "หอมแดง",
+      "หอยเซลล์",
+      "หอยแครง",
+      "หอยแมลงภู่",
+      "หอยกาบ",
+      "หอยนางรม",
+      "หอยหลอด",
+      "หัวบีทรูท",
+      "หัวผักกาด",
+      "หัวหอม",
+      "องุ่น (ดำ/แดง/เขียว)",
+      "อบเชย",
+      "อะโวคาโด",
+      "อัลฟ่า-แลคตาบูมิน (โปรตีนที่มีส่วนผสมในน้ำนม)",
+      "อาร์ติโชค"
+    ]
+  ]
+});
+ const FOODPRINT_CATALOG_FIDELITY_SENTINELS=Object.freeze({
+  "P1-C1-R27":"เนื้อวัว (Ox)",
+  "P1-C1-R29":"นกกระจอกเทศ",
+  "P1-C2-R5":"บรูเวอร์ยีสต์ (เป็นยีสต์ที่ใช้หมักเครื่องดื่ม)",
+  "P1-C3-R22":"ไก่งวง",
+  "P2-C1-R28":"บาร์นะเคิล",
+  "P2-C3-R24":"หอยเซลล์"
+ });
+ function foodPrintCatalogFidelityPayload(){
+  const out=[];
+  for(const pageOrdinal of [1,2])for(let columnIndex=0;columnIndex<3;columnIndex++){
+   const column=FOODPRINT_SOURCE_TRUTH_CATALOG[String(pageOrdinal)]?.[columnIndex]||[];
+   column.forEach((name,index)=>out.push(`P${pageOrdinal}-C${columnIndex+1}-R${index+1}=${clean(name)}`))
+  }
+  return out.join("\n")
+ }
+ const FOODPRINT_CATALOG_FIDELITY_DIGEST="13r83jl";
+ function foodPrintCatalogFidelityAudit(){
+  const digest=stableCode(foodPrintCatalogFidelityPayload()),failures=[];
+  for(const [key,expected] of Object.entries(FOODPRINT_CATALOG_FIDELITY_SENTINELS)){
+   const m=key.match(/^P(\d+)-C(\d+)-R(\d+)$/);if(!m)continue;
+   const actual=foodPrintCatalogLabel(Number(m[1]),Number(m[2])-1,Number(m[3]));
+   if(clean(actual)!==clean(expected))failures.push({key,expected,actual})
+  }
+  const count=[1,2].reduce((sum,p)=>sum+(FOODPRINT_SOURCE_TRUTH_CATALOG[String(p)]||[]).reduce((s,c)=>s+c.length,0),0);
+  return{ok:count===222&&digest===FOODPRINT_CATALOG_FIDELITY_DIGEST&&!failures.length,count,digest,expectedDigest:FOODPRINT_CATALOG_FIDELITY_DIGEST,failures,build:FOODPRINT_CATALOG_FIDELITY_BUILD}
+ }
+ const FOODPRINT_EXPECTED_COLUMN_ROWS=Object.freeze({1:[36,36,35],2:[39,39,37]});
+ function foodPrintCatalogLabel(pageOrdinal,columnIndex,rowIndex){
+  const page=FOODPRINT_SOURCE_TRUTH_CATALOG[String(Number(pageOrdinal)||0)]||[];
+  return clean(page?.[Number(columnIndex)||0]?.[(Number(rowIndex)||1)-1]||"")
+ }
+ function foodPrintCatalogShapeOk(pageOrdinal,byColumn){
+  const expected=FOODPRINT_EXPECTED_COLUMN_ROWS[Number(pageOrdinal)||0];
+  return Boolean(expected&&Array.isArray(byColumn)&&expected.every((count,index)=>Number(byColumn[index]?.length||0)===count))
+ }
+ function suspiciousFoodPrintLabel(value){
+  const label=clean(value);
+  if(!label||/^Food item P\d+-C\d+-R\d+$/i.test(label))return true;
+  if(/^[I|l]\s+[ก-๙]/.test(label)||/[�￾\uFFFD]/.test(label))return true;
+  if(/[\[\]{}]/.test(label)||/\d/.test(label))return true;
+  if((label.match(/[A-Za-z]/g)||[]).length>18&&!/[()]/.test(label))return true;
+  return false
+ }
+ function foodPrintPositionFromKey(value){
+  const match=clean(value).match(/^P(\d+)-C(\d+)-R(\d+)$/i);
+  return match?{page:Number(match[1]),column:Number(match[2]),row:Number(match[3])}:null
+ }
  function foodIntoleranceGrid(page){
    const sourceItems=(page.pdfTextItems?.length?page.pdfTextItems:page.textItems||[])
      .map(item=>({...item,str:clean(item.str)})).filter(item=>item.str);
@@ -2665,8 +2930,9 @@ MIW.LabEngine=(function(){
      const foodPrintPage=Number(page.foodPrintPageOrdinal||sourcePage);
      const positionKey=`${foodPrintPage}-${item.columnIndex+1}-${rowIndex}`;
      const extractedLabel=foodLabelFor(page,item,byColumn[item.columnIndex],item.columnIndex,labelPasses);
-     const catalogLabel=FOODPRINT_PRIORITY_NAMES[positionKey]||"";
-     const labelInfo=catalogLabel?{label:catalogLabel,score:100,pass:"verified-template"}:extractedLabel;
+     const catalogShapeOk=foodPrintCatalogShapeOk(foodPrintPage,byColumn);
+     const catalogLabel=catalogShapeOk?foodPrintCatalogLabel(foodPrintPage,item.columnIndex,rowIndex):"";
+     const labelInfo=catalogLabel?{label:catalogLabel,score:100,pass:"foodprint-source-truth-catalog"}:extractedLabel;
      const label=labelInfo.label;
      const testCode=`food_igg_${stableCode(`${foodPrintPage}|${item.columnIndex}|${rowIndex}`)}`;
      const def=[label,"Food-specific IgG","Food Intolerance IgG 200+",testCode];
@@ -2682,11 +2948,19 @@ MIW.LabEngine=(function(){
        reported_method:"Food-specific IgG",specimen_type:"Serum",
        food_intolerance_level:level,food_intolerance_item_key:`P${foodPrintPage}-C${item.columnIndex+1}-R${rowIndex}`,
        reference_context_raw:"Reported interpretation: Normal <=23 U/mL; Borderline 24-29 U/mL; High >=30 U/mL",
-       confidence:labelInfo.score?97:88,parse_issue:false,photo_ocr:true,ocr_pass:labelInfo.pass,
+       confidence:catalogLabel?100:(labelInfo.score?97:88),parse_issue:!catalogLabel&&suspiciousFoodPrintLabel(label),photo_ocr:true,ocr_pass:labelInfo.pass,
+       foodprint_source_truth_build:FOODPRINT_SOURCE_TRUTH_BUILD,foodprint_source_truth_status:catalogLabel?"CATALOG_VERIFIED":"OCR_FALLBACK",
+       foodprint_catalog_fidelity_build:FOODPRINT_CATALOG_FIDELITY_BUILD,foodprint_catalog_fidelity_status:foodPrintCatalogFidelityAudit().ok?"CATALOG_LOCK_VERIFIED":"CATALOG_LOCK_FAILED",
+       foodprint_source_truth_page_ordinal:foodPrintPage,foodprint_source_truth_shape_ok:catalogShapeOk,
+       foodprint_provenance_build:FOODPRINT_PROVENANCE_BUILD,
+       foodprint_provenance_status:catalogLabel?"PROVENANCE_VERIFIED":"PROVENANCE_UNVERIFIED",
+       foodprint_provenance_position_key:`P${foodPrintPage}-C${item.columnIndex+1}-R${rowIndex}`,
+       foodprint_provenance_source_page:Number(page.sourcePageNumber??page.pageNumber)||null,
+       foodprint_provenance_page_ordinal:foodPrintPage,foodprint_provenance_column:item.columnIndex+1,foodprint_provenance_row:rowIndex,
        reported_name:label,reported_value_raw:value,reported_unit:"U/mL",reported_reference_raw:"<=23",
        source_evidence:[
-         {type:"pdf-text-result",value,page:page.sourcePageNumber??page.pageNumber,x:item.x,y:item.y},
-         {type:"thai-ocr-label",label,ocr_pass:labelInfo.pass,score:labelInfo.score}
+         {type:"pdf-text-result",value,page:page.sourcePageNumber??page.pageNumber,x:item.x,y:item.y,position_key:`P${foodPrintPage}-C${item.columnIndex+1}-R${rowIndex}`},
+         {type:catalogLabel?"foodprint-source-truth-label":"thai-ocr-label",label,ocr_pass:labelInfo.pass,score:labelInfo.score,position_key:`P${foodPrintPage}-C${item.columnIndex+1}-R${rowIndex}`,source_page:page.sourcePageNumber??page.pageNumber}
        ]
      });
      return row
@@ -4930,22 +5204,28 @@ function inbodyAutoRedundantPrimaryRecovery(input){
      const source=[group?.meta?.source_file||"",group?.text||"",...(group?.pages||[]).map(page=>page?.text||"")].join("\n");
      const declared=/(?:FoodPrint|200\+|FOOD[_ -]?INTOLERANCE|รายงานการทดสอบ\s*:\s*ลำดับปฏิกิริยา)/i.test(source)||declaredGroupProfiles(group).has("FOOD_INTOLERANCE_IGG_200_PLUS");
      if(!declared)continue;
+     const catalogAudit=foodPrintCatalogFidelityAudit();
+     if(!catalogAudit.ok){
+       output.push({profile:"FOOD_INTOLERANCE_IGG_200_PLUS",source_file:group?.meta?.source_file||`ไฟล์ ${Number(group.fileIndex||0)+1}`,source_file_index:Number(group.fileIndex||0),expected_codes:["foodprint_catalog_fidelity"],expected_labels:["FoodPrint Catalog Fidelity Guard"],missing_codes:["foodprint_catalog_fidelity"],missing_labels:[`FoodPrint Catalog Fidelity Guard: canonical catalog lock ไม่ผ่าน (${catalogAudit.failures.map(x=>x.key).join(", ")||"digest mismatch"})`],detected_count:222,parsed_count:0,quality_based:"FOOD_CATALOG_FIDELITY"})
+     }
      const present=parsedRows.filter(row=>rowBelongsToGroup(row,group)&&clean(row.specialized_profile).toUpperCase()==="FOOD_INTOLERANCE_IGG_200_PLUS");
      const distinct=new Set(present.map(row=>clean(row.food_intolerance_item_key||row.test_code))).size;
-     const placeholders=present.filter(row=>/^Food item P\d+-C\d+-R\d+$/i.test(clean(row.display_name||row.reported_name))).length;
-     if(distinct>=200&&placeholders===0)continue;
-     if(placeholders>0){
+     const badNames=present.filter(row=>suspiciousFoodPrintLabel(clean(row.display_name||row.reported_name))).length;
+     const catalogVerified=present.filter(row=>clean(row.foodprint_source_truth_status).toUpperCase()==="CATALOG_VERIFIED").length;
+     if(distinct===222&&badNames===0&&catalogVerified===222)continue;
+     if(badNames>0||catalogVerified<Math.min(222,distinct)){
+       const qualityCount=Math.max(badNames,Math.max(0,distinct-catalogVerified));
        output.push({
          profile:"FOOD_INTOLERANCE_IGG_200_PLUS",source_file:group?.meta?.source_file||`ไฟล์ ${Number(group.fileIndex||0)+1}`,
          source_file_index:Number(group.fileIndex||0),expected_codes:[],expected_labels:[],
-         missing_codes:Array.from({length:placeholders},(_,index)=>`food_label_missing_${index+1}`),
-         missing_labels:[`Food-specific IgG ยังมีชื่อ placeholder ${placeholders} รายการ ต้อง OCR ชื่ออาหารจากต้นฉบับ`],
-         detected_count:placeholders,parsed_count:0,quality_based:"FOOD_LABELS"
+         missing_codes:Array.from({length:qualityCount},(_,index)=>`food_source_truth_name_${index+1}`),
+         missing_labels:[`FoodPrint Source Truth Guard: ยังมี ${qualityCount} รายการที่ชื่ออาหารไม่ผ่าน verified 222-item catalog`],
+         detected_count:distinct,parsed_count:catalogVerified,quality_based:"FOOD_SOURCE_TRUTH_NAMES"
        })
      }
-     if(distinct<200){
-       const missing=Math.max(1,200-distinct);
-       output.push({profile:"FOOD_INTOLERANCE_IGG_200_PLUS",source_file:group?.meta?.source_file||`ไฟล์ ${Number(group.fileIndex||0)+1}`,source_file_index:Number(group.fileIndex||0),expected_codes:Array.from({length:200},(_,index)=>`food_igg_expected_${index+1}`),expected_labels:[`Food-specific IgG 200+ อ่านได้ ${distinct} รายการ (ต้องอย่างน้อย 200 รายการ)`],missing_codes:Array.from({length:missing},(_,index)=>`food_igg_missing_${index+1}`),missing_labels:[`Food-specific IgG 200+ อ่านได้ ${distinct} รายการ (ต้องอย่างน้อย 200 รายการ)`],detected_count:200,parsed_count:distinct,count_based:true})
+     if(distinct!==222){
+       const missing=Math.max(1,Math.abs(222-distinct));
+       output.push({profile:"FOOD_INTOLERANCE_IGG_200_PLUS",source_file:group?.meta?.source_file||`ไฟล์ ${Number(group.fileIndex||0)+1}`,source_file_index:Number(group.fileIndex||0),expected_codes:Array.from({length:222},(_,index)=>`food_igg_expected_${index+1}`),expected_labels:[`FoodPrint Source Truth Guard: อ่านได้ ${distinct}/222 รายการ`],missing_codes:Array.from({length:missing},(_,index)=>`food_igg_count_mismatch_${index+1}`),missing_labels:[`FoodPrint Source Truth Guard: อ่านได้ ${distinct}/222 รายการ ต้องได้ครบ 222 รายการก่อนบันทึก`],detected_count:222,parsed_count:distinct,count_based:true})
      }
    }
    return output
@@ -4974,17 +5254,20 @@ function inbodyAutoRedundantPrimaryRecovery(input){
        return{...issue,missing_codes:missingEvents.map(event=>event.key),missing_labels:missingEvents.map(event=>event.label),
          parsed_count:issue.expected_events.length-missingEvents.length}
      }
-     if(issue.quality_based==="FOOD_LABELS"){
-       const placeholders=rows.filter(row=>row.selected!==false&&Number(row.source_file_index??0)===Number(issue.source_file_index??0)&&
-         clean(row.specialized_profile).toUpperCase()==="FOOD_INTOLERANCE_IGG_200_PLUS"&&
-         /^Food item P\d+-C\d+-R\d+$/i.test(clean(row.display_name||row.reported_name))).length;
-       return{...issue,missing_codes:Array.from({length:placeholders},(_,index)=>`food_label_missing_${index+1}`),
-         missing_labels:placeholders?[`Food-specific IgG ยังมีชื่อ placeholder ${placeholders} รายการ ต้อง OCR ชื่ออาหารจากต้นฉบับ`]:[],parsed_count:0}
+     if(issue.quality_based==="FOOD_CATALOG_FIDELITY"){
+       const audit=foodPrintCatalogFidelityAudit();
+       return{...issue,missing_codes:audit.ok?[]:["foodprint_catalog_fidelity"],missing_labels:audit.ok?[]:[`FoodPrint Catalog Fidelity Guard: canonical catalog lock ไม่ผ่าน (${audit.failures.map(x=>x.key).join(", ")||"digest mismatch"})`],parsed_count:audit.ok?222:0}
+     }
+     if(issue.quality_based==="FOOD_SOURCE_TRUTH_NAMES"){
+       const foodRows=rows.filter(row=>row.selected!==false&&Number(row.source_file_index??0)===Number(issue.source_file_index??0)&&clean(row.specialized_profile).toUpperCase()==="FOOD_INTOLERANCE_IGG_200_PLUS");
+       const bad=foodRows.filter(row=>suspiciousFoodPrintLabel(clean(row.display_name||row.reported_name))||clean(row.foodprint_source_truth_status).toUpperCase()!=="CATALOG_VERIFIED").length;
+       return{...issue,missing_codes:Array.from({length:bad},(_,index)=>`food_source_truth_name_${index+1}`),
+         missing_labels:bad?[`FoodPrint Source Truth Guard: ยังมี ${bad} รายการที่ชื่ออาหารไม่ตรง verified catalog`]:[],parsed_count:Math.max(0,foodRows.length-bad)}
      }
      if(issue.count_based){
        const count=rows.filter(row=>row.selected!==false&&Number(row.source_file_index??0)===Number(issue.source_file_index??0)&&clean(row.specialized_profile).toUpperCase()===clean(issue.profile).toUpperCase()).length;
-       const minimum=Number(issue.detected_count||200),missingCount=Math.max(0,minimum-count);
-       return{...issue,missing_codes:Array.from({length:missingCount},(_,index)=>`missing_${index+1}`),missing_labels:missingCount?[`Food-specific IgG 200+ อ่านได้ ${count} รายการ (ต้องอย่างน้อย ${minimum} รายการ)`]:[],parsed_count:count}
+       const expected=Number(issue.detected_count||222),mismatch=Math.abs(expected-count);
+       return{...issue,missing_codes:Array.from({length:mismatch},(_,index)=>`missing_${index+1}`),missing_labels:mismatch?[`FoodPrint Source Truth Guard: อ่านได้ ${count}/${expected} รายการ`]:[],parsed_count:count}
      }
      const missing=(issue.expected_codes||[]).filter(code=>!rows.some(row=>row.selected!==false&&row.test_code===code));
      const labels=missing.map(code=>{
@@ -8627,9 +8910,15 @@ function inbodyAutoRedundantPrimaryRecovery(input){
      // per physical page and carry it only to continuation pages.
      let activePageMeta=group.meta,foodPrintContinuationPages=0;
      for(const originalPage of group.pages){
-       const page=foodPrintContinuationPages>0&&!clean(originalPage.profileHint)
-         ?{...originalPage,profileHint:"FOOD_INTOLERANCE_IGG_200_PLUS"}:originalPage;
-       if(foodPrintContinuationPages>0)foodPrintContinuationPages--;
+       const explicitFoodPrintSource=/(?:FoodPrint|200\+|FOOD[_ -]?INTOLERANCE)/i.test(
+         `${clean(originalPage.text)} ${clean(originalPage.pdfText)} ${photoPasses(originalPage).map(pass=>clean(pass.text)).join(" ")}`
+       );
+       const carriedFoodPrint=foodPrintContinuationPages>0&&!explicitFoodPrintSource;
+       const foodPrintPageOrdinal=explicitFoodPrintSource?1:(carriedFoodPrint?2:0);
+       const page=foodPrintPageOrdinal
+         ?{...originalPage,profileHint:"FOOD_INTOLERANCE_IGG_200_PLUS",foodPrintPageOrdinal}
+         :originalPage;
+       if(carriedFoodPrint)foodPrintContinuationPages--;
        const packetRows=hamadMultiDateRows(page,group.meta.source_file,group.fileIndex);
        const historyRows=sirirajHistoryTableRows(page,group.meta.source_file,group.fileIndex);
        const forcedSpecializedHint=clean(page.profileHint).toUpperCase();
@@ -8660,12 +8949,10 @@ function inbodyAutoRedundantPrimaryRecovery(input){
        const contextualPageText=[clean(page.text),clean(page.pdfText),...photoPasses(page).map(pass=>clean(pass.text))].filter(Boolean).join("\n");
        MIW.ContextualReference?.annotateRows?.(pageRows,contextualPageText,rowMeta);
        rows.push(...pageRows);
-       const explicitFoodPrintPage=/(?:FoodPrint|200\+|FOOD[_ -]?INTOLERANCE)/i.test(
-         `${clean(page.text)} ${clean(page.pdfText)} ${photoPasses(page).map(pass=>clean(pass.text)).join(" ")}`
-       );
        // Only an explicitly headed FoodPrint page may request one continuation
-       // page. A carried hint must not perpetuate itself across Micronutrient pages.
-       if(explicitFoodPrintPage)foodPrintContinuationPages=Math.max(foodPrintContinuationPages,1)
+       // page. v10.317 keeps a stable FoodPrint page ordinal (1/2),
+       // independent of the physical page number inside a merged PDF.
+       if(explicitFoodPrintSource)foodPrintContinuationPages=Math.max(foodPrintContinuationPages,1)
      }
    }
    // Re-run the profile readers for any source-declared analyte that the
@@ -9454,7 +9741,13 @@ function inbodyAutoRedundantPrimaryRecovery(input){
      allergenName:r.allergen_name||"",allergenNameTh:r.allergen_name_th||"",
      allergenComponents:r.allergen_components||[],allergenKind:r.allergen_kind||"",
      foodIntoleranceLevel:r.food_intolerance_level||"",
-     foodIntoleranceItemKey:r.food_intolerance_item_key||"",reportedMethod:r.reported_method||"",methodIdentity:Boolean(r.reported_method||r.method),
+     foodIntoleranceItemKey:r.food_intolerance_item_key||"",
+     foodPrintSourceTruthBuild:r.foodprint_source_truth_build||"",foodPrintSourceTruthStatus:r.foodprint_source_truth_status||"",
+     foodPrintSourceTruthPageOrdinal:r.foodprint_source_truth_page_ordinal||null,foodPrintSourceTruthShapeOk:r.foodprint_source_truth_shape_ok===true,
+     foodPrintProvenanceBuild:r.foodprint_provenance_build||"",foodPrintProvenanceStatus:r.foodprint_provenance_status||"",
+     foodPrintProvenancePositionKey:r.foodprint_provenance_position_key||"",foodPrintProvenanceSourcePage:r.foodprint_provenance_source_page??null,
+     foodPrintProvenancePageOrdinal:r.foodprint_provenance_page_ordinal||null,foodPrintProvenanceColumn:r.foodprint_provenance_column||null,foodPrintProvenanceRow:r.foodprint_provenance_row||null,
+     reportedMethod:r.reported_method||"",methodIdentity:Boolean(r.reported_method||r.method),
      masuyamaLevelLabel:r.masuyama_level_label||"",masuyamaPreviousLevel:r.masuyama_previous_level||"",
      masuyamaReportDate:r.masuyama_report_date||"",masuyamaTestDates:Array.isArray(r.masuyama_test_dates)?r.masuyama_test_dates:[],
      masuyamaHistoryLevels:Array.isArray(r.masuyama_history_levels)?r.masuyama_history_levels:[],masuyamaSourceHistoryAvailable:Boolean(r.masuyama_source_history_available),
@@ -9537,7 +9830,7 @@ function inbodyAutoRedundantPrimaryRecovery(input){
    return saved.length
  }
  function refreshEditedRow(input){collect();const tr=input.closest("tr[data-id]");const r=tr&&rows.find(x=>x.id===tr.dataset.id);const cell=tr&&tr.querySelector("[data-calculated-flag]");if(r&&/^inbody_/i.test(clean(r.test_code||r.testCode)))refreshInBodyReviewGate();if(cell&&r){cell.textContent=r.calculated_flag;tr.classList.toggle("lab-review-needed",needsReview(r))}updateMetrics()}
- function coreApi(){return{open,parse,add,remove,verify,render,download,payload,refreshEditedRow,focusIssue,selectIssue,focusDuplicateConflict,hasPendingIdentityConflict,focusIdentityConflict,confirmCurrentIssue,refreshInBodyReviewGate,setVerifyZoom,openVerifyDocumentFull,getVerifyZoom:()=>verifyZoom,getRows:()=>rows,getReviewAdvisories:()=>reviewIssues(),getInBodyValidationGate:()=>{const selected=rows.filter(r=>/^inbody_/i.test(clean(r.test_code||r.testCode))&&r.selected!==false);return selected.length?inbodyValidationGate(selected):null},_reviewRecommended:needsReview,_hasStructuralIssue:hasStructuralIssue,_testMasuyamaRows:masuyamaRows}}
+ function coreApi(){return{open,parse,add,remove,verify,render,download,payload,refreshEditedRow,focusIssue,selectIssue,focusDuplicateConflict,hasPendingIdentityConflict,focusIdentityConflict,confirmCurrentIssue,refreshInBodyReviewGate,setVerifyZoom,openVerifyDocumentFull,getVerifyZoom:()=>verifyZoom,getRows:()=>rows,getReviewAdvisories:()=>reviewIssues(),getInBodyValidationGate:()=>{const selected=rows.filter(r=>/^inbody_/i.test(clean(r.test_code||r.testCode))&&r.selected!==false);return selected.length?inbodyValidationGate(selected):null},foodPrintSourceTruthLabel:foodPrintCatalogLabel,foodPrintSourceTruthExpectedRows:pageOrdinal=>(FOODPRINT_EXPECTED_COLUMN_ROWS[Number(pageOrdinal)||0]||[]).slice(),foodPrintSourceTruthBuild:FOODPRINT_SOURCE_TRUTH_BUILD,foodPrintProvenanceBuild:FOODPRINT_PROVENANCE_BUILD,foodPrintCatalogFidelityBuild:FOODPRINT_CATALOG_FIDELITY_BUILD,foodPrintCatalogFidelityAudit,foodPrintCatalogFidelityDigest:FOODPRINT_CATALOG_FIDELITY_DIGEST,_reviewRecommended:needsReview,_hasStructuralIssue:hasStructuralIssue,_testMasuyamaRows:masuyamaRows}}
  const api=coreApi(),extras={_testInBodyRows:inbodyRows,_testInBodyParseMeta:parseMeta,_testInBodyValidationGate:inbodyValidationGate,_testInBodyReconcileCanonicalRows:reconcileInBodyCanonicalRows,_testInBodyReconcileCriticalBundles:reconcileInBodyCriticalBundles,_testInBodySyncRawNumerics:syncInBodyRawNumerics,_testInBodyNumericFromRow:inbodyNumericFromRow,_testInBodyApplySourceTruthSnapshot:applyInBodySourceTruthSnapshot,_testInBodySourceTruthSnapshotFromRows:inbodySourceTruthSnapshotFromRows,_testInBodyBuildLiveCanonicalSnapshot:inbodyBuildLiveCanonicalSnapshot,_testInBodyGlobalPrimaryCoherenceLock:inbodyGlobalPrimaryCoherenceLock,_testInBodyAutoRedundantPrimaryRecovery:inbodyAutoRedundantPrimaryRecovery,_testInBodyCoreCoherentFromRows:inbodyCoreCoherentFromRows,_testInBodyApplyLiveCanonicalSnapshot:applyInBodyLiveCanonicalSnapshot,_testInBodyLiveEvidenceScore:inbodyLiveEvidenceScore,_testInBodyHistoryEcwTbwFromText:inbodyHistoryEcwTbwFromText,_testInBodyWeightControlBundle:inbodyWeightControlBundle,_testInBodyWeightControlBundleFromPage:inbodyWeightControlBundleFromPage,_testInBodyReferencePlausible:inbodyReferencePlausible,_testInBodyReferenceExpectedDecimals:inbodyReferenceExpectedDecimals,_testInBodyReconcileSegmentBundles:inbodyReconcileSegmentBundles,_testBnhScannedRows:bnhScannedRows,_testBnhGeometrySourceMatches:bnhGeometrySourceMatches,_testBnhGeometryAnchoredItems:bnhGeometryAnchoredItems,_testSirirajHistoryTableRows:sirirajHistoryTableRows,_testSourceEventIsoDate:sourceEventIsoDate,_testBnhUniqueDecimalRepair:bnhApplyUniqueDecimalRepair,_testBnhDifferentialCompatible:bnhDifferentialCompatible,_testBnhAtomicFlagConsistent:bnhAtomicFlagConsistent,_testBnhReferenceEndpointEcho:bnhReferenceEndpointEcho,_testBnhBundleIntegrity:bnhBundleIntegrity,_testBnhTypedRowAssessment:bnhTypedRowAssessment,_testBnhTypedReferenceDecimalRepair:bnhTypedReferenceDecimalRepair,_testBnhNormalizeRepeatedSourceTokens:bnhNormalizeRepeatedSourceTokens,_testBuildSourceEventGroups:buildSourceEventGroups,_testDedupeBatchRecords:dedupeBatchRecords,_testManualBatchIdentityResolution:manualBatchIdentityResolution,_testHardBatchIdentityConflict:hardBatchIdentityConflict,_testBnhSelectAtomicMatch:bnhSelectAtomicMatch,_testBnhRecoverMissingRows:bnhRecoverMissingRows,_testBnhCoombsRecoveryRow:bnhCoombsRecoveryRow,_testBnhCoagRecoveryRow:bnhCoagRecoveryRow,_testBnhCoagReferenceQuality:bnhCoagReferenceQuality,_testBnhExactSourceReconcile:reconcileBnhExactSourceRows,_testBnhBundleReconcile:reconcileBnhBundleAgainstGeneric,_testFinalizeBnhSourceTruth:finalizeBnhSourceTruth,_testBnhSourceTruthFinalizationExpectations:bnhSourceTruthFinalizationExpectations,_testTrustedSourceIdentityConsensus:trustedSourceIdentityConsensus,_testTrustedRelatedHistoryMatch:trustedRelatedHistoryMatch,_testBnhLongitudinalEventExpectations:bnhLongitudinalEventExpectations,_testBnhRecoverMissingLongitudinalEvents:bnhRecoverMissingLongitudinalEvents,_testBnhPageEventDate:bnhPageEventDate,_test214:{bnhScannedRows,bnhScannedPage,bnhCompletenessExpectations,mergePhotoEvidence,applyPlausibilityQuarantine,sourceTruthPlausibility,standaloneRows,parseRef},_test:{photoTableRows,standaloneRows,mergePhotoEvidence,maharatNonLabPage,annotateDuplicateConflicts,duplicateResultGroups,duplicateReviewKey,duplicateReviewEventToken,verificationKey,pageLocalMetadataText,pageScopedMeta,sameClinicalEventForConflict,sanitizeDuplicateConflictGroups,preferredClinicalEventId,_setDocumentRecord:value=>{documentRecord=value}}};
  extras._test=Object.assign({},extras._test,api._test||{});return Object.assign(api,extras)
 })();

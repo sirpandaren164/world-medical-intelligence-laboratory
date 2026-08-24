@@ -1,0 +1,28 @@
+MIW v10.317 — FoodPrint Catalog Fidelity Guard
+
+Why this release
+- v10.316 could report FoodPrint Source Truth 222/222 and Provenance 222/222 while a typo already existed inside the canonical catalog itself.
+- Example found in the supplied source: P1-C3-R22 is "ไก่งวง" in the FoodPrint source, but the v10.316 canonical catalog stored "ไข่งวง".
+
+Corrections re-audited against the supplied FoodPrint source pages 11–12
+- P1-C3-R22: ไข่งวง -> ไก่งวง
+- P1-C2-R5: บริเวอร์ยีสต์ (เป็นยีสต์ที่ใช้หมักเครื่องดื่ม) -> บรูเวอร์ยีสต์ (เป็นยีสต์ที่ใช้หมักเครื่องดื่ม)
+
+New FoodPrint Catalog Fidelity Guard
+- Adds a locked full-catalog digest for the 222 canonical labels.
+- Adds source-audited sentinel labels at fixed P/C/R positions.
+- Export is blocked when the canonical catalog digest/sentinels do not match the audited catalog.
+- FoodPrint overview now shows Catalog Fidelity Guard separately from Source Truth Guard and Provenance Guard.
+- Existing v10.315/v10.316 patient rows are repaired from the new canonical catalog when the booklet is opened; re-upload is not required for rows with valid P/C/R keys.
+
+Important source-truth behavior
+- Unusual food names are NOT automatically removed merely because they look uncommon.
+- If the supplied FoodPrint source actually contains an unusual label (e.g. นกกระจอกเทศ, เนื้อวัว (Ox), บาร์นะเคิล, หอยเซลล์), MIW preserves it as source truth.
+- The guard targets transcription errors introduced by MIW's canonical catalog, not rare items genuinely printed by the laboratory.
+
+Regression checks
+- Catalog count: PASS 222/222
+- Canonical digest: PASS 13r83jl
+- P1-C3-R22 = ไก่งวง: PASS
+- P1-C2-R5 = บรูเวอร์ยีสต์ (เป็นยีสต์ที่ใช้หมักเครื่องดื่ม): PASS
+- JavaScript syntax: PASS lab-engine.js / patient-booklet.js / app-v5.js

@@ -1,0 +1,20 @@
+MIW v10.317 FoodPrint Catalog Fidelity regression
+
+Source packet reviewed: FoodPrint pages 11–12 in supplied merged PDF.
+Expected total canonical positions: 222
+
+Critical label regression:
+PASS P1-C3-R22  ไก่งวง
+PASS P1-C2-R5   บรูเวอร์ยีสต์ (เป็นยีสต์ที่ใช้หมักเครื่องดื่ม)
+PASS P1-C1-R27  เนื้อวัว (Ox)
+PASS P1-C1-R29  นกกระจอกเทศ
+PASS P2-C1-R28  บาร์นะเคิล
+PASS P2-C3-R24  หอยเซลล์
+
+Catalog digest: 13r83jl
+Count: 222/222
+
+Expected legacy recovery behavior:
+- A stored v10.316 row P1-C3-R22 named ไข่งวง is renamed to ไก่งวง on Patient Booklet load.
+- A stored v10.316 row P1-C2-R5 named บริเวอร์ยีสต์... is renamed to บรูเวอร์ยีสต์...
+- Correct P/C/R and source-page provenance are preserved.

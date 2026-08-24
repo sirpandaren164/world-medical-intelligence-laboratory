@@ -190,7 +190,7 @@ MIW.OnconomicsReview=(function(){
      reportDate:parsed.meta.date,patientName:parsed.meta.patient,dob:parsed.meta.dob,disease:parsed.meta.disease,stage:parsed.meta.stage,
      ctc:parsed.meta.ctc,pageCount:parsed.pageCount,summary:parsed.summary,warnings:parsed.extractionWarnings,
      status:"AUTO_IMPORTED_SOURCE_PARSED",importMode:"ONCONOMICS_WHOLE_REPORT",manualVerificationRequired:false,
-     reviewRecommendedCount:reviewRecommended.length,parserVersion:"MIW v10.312 · Additional Drug Source Fidelity + Cross-Upload Aggregation",
+     reviewRecommendedCount:reviewRecommended.length,parserVersion:"MIW v10.313 · Clinical Booklet + Additional Drug Source Fidelity + Cross-Upload Aggregation",
      parentDocumentId:parsed?.meta?.parentDocumentId||existing?.parentDocumentId||"",mixedPacketSource:Boolean(parsed?.meta?.mixedPacketSource||existing?.mixedPacketSource),
      autoPersisted:true,confirmedByReview:Boolean(confirmed),createdAt:existing?.createdAt||stamp,updatedAt:stamp
    };

@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>MIW v10.312 Additional Drug Source Fidelity</title>
-  <link rel="stylesheet" href="./assets/css/app.css?v=10.312">
+  <title>MIW v10.317 FoodPrint Catalog Fidelity Guard</title>
+  <link rel="stylesheet" href="./assets/css/app.css?v=10.315">
 </head>
-<body data-miw-version="10.312" data-miw-build="10.312-additional-drug-source-fidelity">
+<body data-miw-version="10.317" data-miw-build="10.317-foodprint-catalog-fidelity-guard">
 <header class="topbar">
   <div class="brand">
     <div class="brand-mark">MIW</div>
     <div>
       <h1>Medical Intelligence Workstation</h1>
-      <p>v10.312 · Clinical Diagnostics · TH / EN</p>
+      <p>v10.317 · FoodPrint Catalog Fidelity + Provenance + Source Truth · Full Report Default + Clinical Summary · TH / EN</p>
     </div>
   </div>
   <div class="top-actions">
@@ -834,10 +834,10 @@
           </div>
           <div class="field"><label for="bookletDensity">รูปแบบการเล่าเรื่องในรายงาน</label>
             <select id="bookletDensity">
-              <option value="full" selected>Detailed Patient Report — แนะนำ · มีคำอธิบายอยู่กับผลตรวจแต่ละตัว</option>
-              <option value="compact">Compact Table Report — ทางเลือก · สั้นกว่าแต่ลดคำอธิบายรายตัว</option>
+              <option value="full" selected>Full Report — แบบยาว (ค่าเริ่มต้น) · ทุกกราฟ + คำอธิบายรายตัวแบบเต็ม</option>
+              <option value="clinical">Clinical Summary — แบบสั้น · สรุปอ่านง่าย + รายการสำคัญ + ตารางผลครบแบบย่อ</option>
             </select>
-            <small class="muted">ค่าเริ่มต้นกลับมาเป็นแบบละเอียด: ชื่อการตรวจ ผล ช่วงอ้างอิง ความหมาย ค่าสูง/ต่ำ สิ่งที่ควรดูร่วมกัน และข้อควรระวังจะอยู่ด้วยกัน ไม่รวมหลายรายการปนในตารางเดียว เว้นแต่เลือก Compact เอง</small>
+            <small class="muted">Full Report เป็นค่าเริ่มต้นและเก็บรายละเอียดครบสำหรับ Medical Record / Technical Review; Clinical Summary เป็นตัวเลือกเสริมสำหรับอ่านเร็ว ส่ง consult หรือสื่อสารกับผู้ป่วย โดยใช้ข้อมูลชุดเดียวกัน</small>
           </div>
         </div>
 
@@ -877,11 +877,12 @@
 
         <div class="booklet-builder-actions">
           <button id="bookletRefreshButton" type="button">สร้าง / อัปเดต Preview</button>
-          <button id="bookletPrintButton" class="secondary" type="button" disabled>พิมพ์ / บันทึก Interactive PDF</button>
-          <button id="bookletEbookOpenButton" class="secondary" type="button" disabled>เปิด Interactive e‑Book</button>
-          <button id="bookletEbookDownloadButton" class="secondary" type="button" disabled>ดาวน์โหลด Interactive e‑Book (.html)</button>
+          <button id="bookletPrintButton" type="button" disabled>📘 Export Full Report — แบบยาว</button>
+          <button id="bookletClinicalPrintButton" class="secondary" type="button" disabled>📗 Export Clinical Summary — แบบสั้น</button>
+          <button id="bookletEbookOpenButton" class="secondary" type="button" disabled>เปิด Interactive e‑Book ตาม Preview</button>
+          <button id="bookletEbookDownloadButton" class="secondary" type="button" disabled>ดาวน์โหลด Interactive e‑Book (.html) ตาม Preview</button>
         </div>
-        <div id="bookletExportStatus" class="booklet-export-status" role="status" aria-live="polite">สร้าง Preview ก่อน แล้วจึงบันทึก Interactive PDF หรือ e‑Book</div>
+        <div id="bookletExportStatus" class="booklet-export-status" role="status" aria-live="polite">Full Report เป็นค่าเริ่มต้น · สร้าง Preview แล้วเลือก Export แบบยาวหรือแบบสั้นได้ทันที</div>
         <p class="booklet-control-note">รายงานแสดงสถานะผลตามข้อมูลที่บันทึกไว้ รายการ QA/REVIEW จะมีป้าย DRAFT จนกว่าจะทำเครื่องหมายตรวจทาน และไม่แทนการวินิจฉัยหรือคำสั่งรักษาจากแพทย์</p>
       </aside>
 
@@ -978,22 +979,22 @@
 <script src="./assets/js/modules/diagnostic-modules.js?v=10.275"></script>
 <script src="./assets/js/modules/onconomics-source-truth.js?v=10.283"></script>
 <script src="./assets/js/modules/contextual-reference.js?v=10.297"></script>
-<script src="./assets/js/modules/lab-engine.js?v=10.306"></script>
+<script src="./assets/js/modules/lab-engine.js?v=10.317"></script>
 <script src="./assets/js/modules/rgcc-interpretation.js?v=10.275"></script>
 <script src="./assets/js/modules/inbody-interpretation.js?v=10.307"></script>
 <script src="./assets/js/modules/lab-tracker.js?v=10.307"></script>
 <script src="./assets/js/modules/ebook-style-bundle.js?v=10.275"></script>
-<script src="./assets/js/modules/patient-booklet.js?v=10.312"></script>
+<script src="./assets/js/modules/patient-booklet.js?v=10.317"></script>
 <script src="./assets/js/modules/ltx-engine.js"></script>
 <script src="./assets/js/modules/evidence-engine.js"></script>
 <script src="./assets/js/modules/yasinee-gene-fields.js?v=10.275"></script>
 <script src="./assets/js/modules/gene-report-schema.js?v=10.275"></script>
-<script src="./assets/js/modules/onconomics-parser.js?v=10.312"></script>
-<script src="./assets/js/modules/onconomics-review.js?v=10.312"></script>
+<script src="./assets/js/modules/onconomics-parser.js?v=10.314"></script>
+<script src="./assets/js/modules/onconomics-review.js?v=10.314"></script>
 <script src="./assets/js/modules/onconomics-knowledge.js?v=10.275"></script>
 <script src="./assets/js/modules/onconomics-clinical-meta.js?v=10.275"></script>
 <script src="./assets/js/modules/onconomics-series.js?v=10.283"></script>
 <script src="./assets/js/ui/router.js"></script>
-<script src="./assets/js/app-v5.js?v=10.312"></script>
+<script src="./assets/js/app-v5.js?v=10.317"></script>
 </body>
 </html>
