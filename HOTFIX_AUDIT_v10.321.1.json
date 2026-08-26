@@ -1,0 +1,21 @@
+{
+  "version": "10.321.1",
+  "bug": "ReferenceError: options is not defined in ctcExecutiveSummary",
+  "root_cause": "ctcExecutiveSummary(model) used bookletEnglishMode(options) although no local options binding exists in that function",
+  "fix": "use bookletEnglishMode(model.options)",
+  "scope": [
+    "assets/js/modules/patient-booklet.js",
+    "index.html cache/version markers",
+    "release/regression metadata"
+  ],
+  "parser_logic_changed": false,
+  "onconomics_numeric_values_changed": false,
+  "tests": {
+    "javascript_syntax_files": 37,
+    "javascript_syntax": "PASS",
+    "ctcExecutiveSummary_onconomics_only_en": "PASS",
+    "singular_1_report": "PASS",
+    "absent_OncoTrail_METASTAT_not_injected": "PASS",
+    "specializedExecutivePages_onconomics_only": "PASS"
+  }
+}

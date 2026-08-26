@@ -1,0 +1,15 @@
+MIW v10.322 isolated Chromium PDF text-layer test
+
+Method
+- Chromium headless PDF generation via Playwright page.set_content/page.pdf
+- Test strings: in-vitro, printed-label, drug-interaction, Mr-John-Doe, their U+2011 equivalents, and exact trailing source label Histonedeacetylase-
+- Extraction checked with pdftotext and pypdf.
+
+Result
+PASS
+- U+FFFE occurrences: 0
+- U+2011 non-breaking hyphens retained in extracted text: 5
+- Exact trailing source label extracted as: Histonedeacetylase-
+
+Limit
+This is an isolated Chromium PDF-engine regression test, not a full 136-page MIW Patient Booklet end-to-end export. Native Save as PDF output from the user browser still needs final verification.

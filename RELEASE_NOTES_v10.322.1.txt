@@ -1,0 +1,21 @@
+MIW v10.322.1 — Terminal Hyphen Text-Layer Hotfix
+
+Scope
+- Hotfixes the single remaining Chrome/Edge PDF text-layer artifact found after v10.322.
+- Does not change Onconomics values, thresholds, assay routing, exact stored source labels, or clinical interpretation logic.
+
+Observed v10.322 issue
+- The 136-page John Doe English Full Report had one remaining U+FFFE text-layer artifact on item page 54.
+- Visible text was correct: Histonedeacetylase- / Resistant Phenotype Markers / 65%.
+- Extracted PDF text joined the terminal ASCII hyphen to the next text object as: Histonedeacetylase<U+FFFE>Resistant Phenotype Markers.
+
+Fix
+- Stored and on-screen source label remains the literal source label Histonedeacetylase-.
+- Only during PDF/eBook preflight, a terminal ASCII hyphen inside an exact-source-label element is rendered as U+2011 NON-BREAKING HYPHEN plus a non-breaking boundary space.
+- afterprint restores the live DOM to the original literal source text.
+- Text-Layer Guard now explicitly counts terminal ASCII hyphens in exact-source-label nodes as a preflight risk, so an unconverted terminal source hyphen blocks export.
+
+Expected regression
+- Final exported PDF text layer: U+FFFE/U+FFFF/noncharacter occurrences = 0.
+- Histonedeacetylase remains visually identical to the source label and stays linked to the 65% source result on page 4.
+- Existing U+2011 handling for in-vitro, printed-label, drug-interaction, file names, and other intra-word hyphens is preserved.

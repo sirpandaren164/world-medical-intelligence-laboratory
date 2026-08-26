@@ -1,0 +1,15 @@
+MIW v10.322.1 regression targets
+
+PASS targets
+- Project JavaScript syntax passes.
+- pdfTextLayerSafeValue("Histonedeacetylase-", true) returns terminal U+2011 plus NBSP for print/eBook preflight.
+- pdfTextLayerSafeValue("printed-label", false) keeps v10.322 U+2011 intra-word behavior.
+- pdfTextLayerSafeValue removes U+FFFE and other noncharacters.
+- Exact stored/on-screen source label remains Histonedeacetylase- before print and is restored after print.
+- Text-Layer Guard detects a terminal ASCII hyphen in data-source-label-exact before normalization.
+- No Onconomics numeric source-truth module is modified.
+- Index/runtime/cache version is 10.322.1.
+
+Final machine QA target after Chrome/Edge Save as PDF
+- Search/extract U+FFFE (￾): 0 occurrences.
+- Histonedeacetylase item page remains 65% and Source page 4.

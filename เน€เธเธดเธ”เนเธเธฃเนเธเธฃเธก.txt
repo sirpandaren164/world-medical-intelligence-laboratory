@@ -1,0 +1,10 @@
+MIW v10.322 — PDF Text-Layer & Exact Source Label Guard
+
+เปิด index.html ด้วย Chrome หรือ Edge
+Full Report เป็นค่าเริ่มต้น และ Clinical Summary เป็นตัวเลือกเสริม
+English export ยังคงใช้ English Source Fidelity Guard
+v10.322 เพิ่ม PDF Text-Layer preflight และ Exact Source Label Guard
+- ป้องกัน Unicode noncharacter/soft-hyphen/zero-width artifact ก่อน Print
+- ลดปัญหา Chrome PDF text layer ที่เคยอ่าน “-” เป็น ￾
+- รักษา source label เช่น Histonedeacetylase- และ Boswellia Serratta แยกจาก normalized identity
+Printed-label numeric source truth จาก v10.319–v10.321.1 ยังคงเดิม

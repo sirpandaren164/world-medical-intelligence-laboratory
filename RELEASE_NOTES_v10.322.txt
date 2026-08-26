@@ -1,0 +1,23 @@
+MIW v10.322 — PDF Text-Layer & Exact Source Label Guard
+
+Scope
+- Preserves v10.321.1 Patient Booklet hotfix and v10.321 source-fidelity changes.
+- No verified Onconomics numeric value/threshold logic is changed.
+
+1) PDF/eBook Text-Layer Guard
+- Removes soft-hyphen, zero-width and Unicode noncharacter artifacts before print/eBook PDF export.
+- Converts breakable intra-word ASCII hyphens (for example in-vitro, printed-label, drug-interaction and file-name) to U+2011 non-breaking hyphen only during print preflight, then restores the live preview after printing.
+- Uses Arial/Segoe UI first in the print font stack to reduce Chromium PDF ToUnicode hyphen artifacts.
+- Source-label elements are forced nowrap and are excluded from semantic hyphen replacement.
+- Export is blocked when preflight still finds noncharacters, hidden/soft characters or breakable intra-word hyphens.
+
+2) Exact Source Label Guard
+- Keeps exact source display labels separate from normalized internal identities.
+- Histonedeacetylase- remains the RGCC source label; “Histone-deacetylase-dipeptide” is not rendered as a source label.
+- CD20 retains the complete source category “Development and differentiation of B cells into plasma cells”.
+- Natural-substance Report Summary preserves exact source spelling when recoverable from stored source pages.
+- For the John Doe source, “Boswellia Serratta” is preserved in the Report Summary while “Boswellia Serrata” remains the normalized chart/knowledge identity.
+- Adds Boswellia Serratta as a parser alias for future imports.
+
+Limit
+- Native Chrome/Edge Save as PDF does not return the generated PDF bytes to the web app, so the app cannot inspect the final PDF text layer after the print dialog. v10.322 therefore adds strict preflight and print-safe normalization before the dialog.

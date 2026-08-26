@@ -1,0 +1,43 @@
+{
+  "version": "10.322",
+  "source_base": "10.321.1",
+  "issues_addressed": [
+    "Chromium PDF U+FFFE text-layer artifacts around breakable hyphens",
+    "exact source-label vs normalized-label separation"
+  ],
+  "john_doe_source_checkpoints": {
+    "ctc": "2 cells/mL",
+    "over_expression": [
+      "IkB(a,b,c)",
+      "NFkB",
+      "HDAC",
+      "ANG 1"
+    ],
+    "down_regulation": [
+      "COX2",
+      "HSP90",
+      "HSP72"
+    ],
+    "resistance": {
+      "MRP1": 70,
+      "GST": 45,
+      "MDR1": 10,
+      "LRP": 2
+    },
+    "exact_labels": [
+      "Histonedeacetylase-",
+      "Development and differentiation of B cells into plasma cells",
+      "Boswellia Serratta"
+    ]
+  },
+  "numeric_logic_changed": false,
+  "native_pdf_post_export_inspection_available_in_app": false,
+  "tests": {
+    "javascript_syntax": "PASS (37/37)",
+    "parser_exact_boswellia_summary": "PASS",
+    "stored_page_exact_label_recovery": "PASS",
+    "pdf_text_safe_value": "PASS",
+    "isolated_chromium_pdf_hyphen_text_layer": "PASS (0 U+FFFE; U+2011 preserved)",
+    "full_miw_136_page_native_save_as_pdf": "NOT EXECUTED IN BUILD ENVIRONMENT"
+  }
+}

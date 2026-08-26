@@ -1,0 +1,19 @@
+MIW v10.320 REGRESSION TEST
+
+PASS — JavaScript syntax: 37/37 project scripts passed node --check.
+PASS — English Executive Summary subtitle is built with bilingual(...), not a raw Thai mixed-language text node.
+PASS — Specialized Diagnostics heading/subheading are language-aware.
+PASS — Precision Oncology / CTC card report count is language-aware.
+PASS — Precision Oncology / CTC card source-item count is language-aware.
+PASS — Precision Oncology / CTC assay-specific interpretation note is language-aware.
+PASS — English Fidelity Guard remains enabled; export is not bypassed.
+PASS — English Fidelity Guard diagnostics now include actual residual text and element/class samples.
+PASS — v10.319 source-truth/parser logic is preserved; no change to Onconomics parser/source-truth modules.
+
+BUG FIXTURE
+- Input state: Onconomics-only John Doe booklet, English, Full Report.
+- v10.319 runtime result: blocked with 4 visible Thai text nodes.
+- v10.320 code path: the four report-layer residual strings are rendered directly in English before the fidelity audit.
+
+NOTE
+- Full browser/print execution is still environment-dependent. The hard guard remains active and will block any previously unknown Thai leak rather than silently export it.

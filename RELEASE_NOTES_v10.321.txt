@@ -1,0 +1,21 @@
+MIW v10.321 — Label & Assay Presence Fidelity Guard
+
+Source basis
+- Compared against RGCC Onconomics Extracts+ 15-page John Doe source report and v10.320 English Full Report.
+- v10.319/v10.320 numeric source-truth corrections are preserved.
+
+Fixed
+1. Patient-specific assay presence: patient-facing text names only assays actually present. Onconomics-only reports no longer list OncoTrail or METASTAT as if tested.
+2. Source label fidelity: removes invented display label "Histone-deacetylase-dipeptide" and preserves audited source label "Histonedeacetylase-" while retaining the normalized identity for knowledge lookup.
+3. Multiline category fidelity: CD20 "Development and" is restored to "Development and differentiation of B cells into plasma cells" when the source fragment is an exact truncated prefix.
+4. Missing-field clarity: source-summary empty fields are explicitly labelled; when a chemotherapy/MoAb/Additional panel is absent, the report says the panel is not included in the source extract instead of implying a tested negative/low result.
+5. PDF/eBook text-layer hygiene: Unicode noncharacters and zero-width/control artifacts are replaced/removed before export, using ordinary ASCII hyphens for recovered separators. A post-sanitization Text-Layer Guard blocks export if any noncharacter remains; live booklet text is restored after printing or eBook creation.
+6. English grammar polish: 1 report / 1 module / 1 result.
+
+Preserved
+- English-only hard gate.
+- CTC source page 1 provenance.
+- John Doe over-expression/down-regulation source summary.
+- Resistance Factors MDR1 10%, MRP1 70%, LRP 2%, GST 45%.
+- Natural printed-label corrections.
+- FoodPrint guards and Lab-vs-Pathology/GAAD/PIVKA II support.

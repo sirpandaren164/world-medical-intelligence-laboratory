@@ -1,0 +1,14 @@
+MIW v10.321.1 regression
+
+PASS criteria
+1. JavaScript syntax check passes for every JS file.
+2. Calling PatientBooklet.__test.ctcExecutiveSummary() with an English Onconomics-only model does not throw ReferenceError.
+3. The CTC executive summary renders "1 report" (singular).
+4. The same summary contains Onconomics Plus and does not inject OncoTrail/METASTAT when they are absent.
+5. specializedExecutivePages() can build the Onconomics-only CTC summary page without the previous `options is not defined` failure.
+
+Expected runtime path
+- Open existing patient database from v10.321.
+- Open Patient Booklet.
+- EN -> Full Report.
+- No PatientBooklet-OpenLatest crash from ctcExecutiveSummary.

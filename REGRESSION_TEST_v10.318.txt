@@ -1,0 +1,8 @@
+MIW v10.318 REGRESSION
+PASS — false pathology organization-header fixture -> LABORATORY 99%
+PASS — cached PATHOLOGY + strong lab evidence -> LABORATORY_PROBE
+PASS — true HISTOPATHOLOGY/PATHOLOGY REPORT fixture remains PATHOLOGY
+PASS — GAAD Score 9.98 H ref 0–2.57 parsed
+PASS — AFP 13.4 H ng/mL ref 0–7 parsed
+PASS — PIVKA II 10,509 H mAU/mL ref 0–28.4 parsed as numeric 10509
+PASS — JS syntax check all project scripts

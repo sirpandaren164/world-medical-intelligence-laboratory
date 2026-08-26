@@ -1,0 +1,17 @@
+MIW v10.319 REGRESSION TEST
+
+PASS — JavaScript syntax: 37/37 project scripts passed node --check.
+PASS — v10.318 unchanged core hashes preserved for lab-engine, classifier, mixed-clinical-packet, lab-knowledge, contextual-reference, preview, photo-capture, i18n, app-v5 and app.css.
+PASS — REPORT SUMMARY direction fixture: Over expression = IkB(a,b,c), NFkB, HDAC, ANG 1.
+PASS — REPORT SUMMARY direction fixture: Down regulation = COX2, HSP90, HSP72.
+PASS — Parenthesis-aware list parsing keeps IkB(a,b,c) as one analyte.
+PASS — John Doe 15-Jul-2024 source-audit fixture: 57/57 printed labels matched; 0 missing, 0 mismatch, 0 extra.
+PASS — Legacy wrong-value correction fixture: Artecin 29→30; Bio D Mulsion NuMedica D3 14→15; Frankincense 9→10.
+PASS — Resistance correction fixture: MRP1 10→70; LRP 29→2; GST 10→45; MDR1 remains 10.
+PASS — CTC provenance fixture: 2 cells/mL is repaired to RGCC source page 1.
+PASS — English CTC executive component: no Thai text in English mode and no METASTAT text when only Onconomics is present.
+PASS — Gene summary component separates positive / near-baseline / negative and does not label PTEN -50% as a positive finding.
+PASS — v10.319 runtime version/build identifiers present in index.html.
+
+TEST LIMITATION
+- Browser end-to-end PDF import/print was not executed in the build container because local Chromium navigation is blocked by administrator policy. Runtime English-fidelity and source-audit guards are included to block export rather than silently generate a mixed-language/source-mismatched report.

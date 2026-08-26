@@ -1,0 +1,27 @@
+MIW v10.318 — Lab-vs-Pathology Guard + GAAD/PIVKA II
+
+Primary bug fixed
+- A laboratory image from "Bangkok Chain Laboratory and Pathology Clinic" could be classified as PATHOLOGY because the organization name contains the word "Pathology" and the page contains a specimen field.
+- v10.318 treats the organization name as a header only. PATHOLOGY now requires true pathology structure such as HISTOPATHOLOGY, PATHOLOGY REPORT, MICROSCOPIC DESCRIPTION, IMMUNOHISTOCHEMISTRY, GROSS DESCRIPTION, or FINAL DIAGNOSIS.
+- Strong laboratory evidence (LABORATORY RESULTS REPORT, result/unit/reference table, GAAD/AFP/PIVKA II panel) overrides the false pathology header.
+- Cached v10.317 documents already stored as PATHOLOGY can route through LABORATORY_PROBE without re-upload when strong laboratory evidence is present and true pathology evidence is absent.
+
+New HCC biomarker support
+- GAAD Score (AFP + PIVKA II) -> gaad_score
+- AFP -> afp (short AFP label now recognized)
+- PIVKA II / DCP -> pivka_ii
+- mAU/mL is a supported unit.
+- PIVKA values using a thousands comma are preserved correctly: 10,509 -> 10509, not 10.509.
+- Flexible photo-table parser supports source layout: value + H/L flag + unit + reference range.
+
+Regression fixture
+- GAAD Score = 9.98 H, reference 0–2.57
+- AFP = 13.4 H ng/mL, reference 0–7
+- PIVKA II = 10,509 H mAU/mL, reference 0–28.4
+- Expected document classification: LABORATORY
+- Expected route for a cached false PATHOLOGY classification: LABORATORY_PROBE
+- True histopathology fixture remains PATHOLOGY.
+
+Preserved
+- FoodPrint Catalog Fidelity / Provenance / Source Truth guards from v10.317 remain intact.
+- Onconomics / OncoTrail / METASTAT behavior was not intentionally changed.

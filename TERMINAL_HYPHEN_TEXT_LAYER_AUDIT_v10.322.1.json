@@ -1,0 +1,22 @@
+{
+  "version": "10.322.1",
+  "guard": "Terminal Hyphen Text-Layer Hotfix",
+  "basis": {
+    "v10.322_export_pages": 136,
+    "remaining_u_fffe": 1,
+    "remaining_location": "item page 54 / source page 4 / Histonedeacetylase- 65%"
+  },
+  "strategy": {
+    "stored_source_label": "Histonedeacetylase-",
+    "print_terminal_glyph": "U+2011",
+    "print_boundary": "U+00A0",
+    "restore_after_print": true,
+    "block_unconverted_terminal_exact_hyphen": true
+  },
+  "numeric_core_changed": false,
+  "final_pdf_acceptance": {
+    "U+FFFE": 0,
+    "U+FFFF": 0,
+    "Thai_in_EN_report": 0
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "assets/js/modules/lab-engine.js": "ee5dba8a21d92a9e0050b4e28d7577aa6c9cc4d9dd7a0265b0c58772ff45d28e",
+  "assets/js/modules/classifier.js": "902762be6c342051b5041589ecf47e581757117c8f014972dc941e99d6ca149e",
+  "assets/js/modules/mixed-clinical-packet.js": "ce38b49dcc291c2bdbf9a6f0c293e400b6a1ee74c235befa7a10500baeeb6983",
+  "assets/js/modules/lab-knowledge.js": "f9bad3ea8f9efb71eaa64f245a95ffcafc702d3bf09b7a662eb66ede4e49535a",
+  "assets/js/modules/onconomics-source-truth.js": "7f7cf775bb280100052f343f9c8d0cf7e86292e4402b132eb024f756d68f74e5",
+  "assets/js/modules/contextual-reference.js": "ccb0be8c587251f1177a332687fc61f4691140ab74ccac39eb297c3f4005eefa",
+  "assets/js/modules/preview.js": "16ff3343c4a045f7da4266cfc59163b8d5b1fd07dbf731961bfe201dcf9fab13",
+  "assets/js/modules/photo-capture.js": "057a04ed86b410d02bcff0b4c170a42f4e2d24da7b9024fcf5d3efe0bb1bfd1c",
+  "assets/js/modules/onconomics-parser.js": "10e014ebaee10f38e143c4053ea6d978007f921ae2a6fbba2054cc700b3afa44",
+  "assets/js/modules/onconomics-review.js": "07bcb8862b44f024c566243d857b3f74c07353c1d8b9f3e2ec61bcaadbb587a9",
+  "assets/js/modules/patient-booklet.js": "eb18059cbfe4f503a8d372799afb6995ed569622a319ff543f28507daee3c45c",
+  "assets/js/modules/i18n.js": "7c0e46f6b109a6014cafe5779709d760bdd30b2f4d4b3a2ea51ebf0f0c0f57c3",
+  "assets/js/app-v5.js": "570901ea1a618746482614ce1b4ac4d26502660a382a35476c90ea9bb469df6d",
+  "assets/css/app.css": "9c83841b4fa298b6ef7de951c44e9f885ce4f5a2f6fde5de33fa4c179d64c26d",
+  "index.html": "9d2362aa5cdc3e17a72554768678b20f1e835b6ef81bf9d155f602dfaf9873de",
+  "RELEASE_NOTES_v10.320.txt": "99bd120a8fca2814f6f7816d34fb2663eb212ea6518a5e41170bb8efc2440db3",
+  "REGRESSION_TEST_v10.320.txt": "54807ce6e33c1db76503e140c528832e005ca29fe16d435ca09c8520f2a93511",
+  "ENGLISH_SOURCE_FIDELITY_AUDIT_v10.319.json": "f2d5ba2faa52a9afa7e7ab63fe9c3fdcacb50942dbf609e67e0bd864f54d804c"
+}

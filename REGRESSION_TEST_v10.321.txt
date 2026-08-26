@@ -1,0 +1,23 @@
+MIW v10.321 — Label & Assay Presence Fidelity Guard
+Regression / source-fidelity checks
+
+PASS — JavaScript syntax: 37/37 files pass node --check.
+PASS — Runtime version: index.html data-miw-version = 10.321.
+PASS — Old patient-facing generic assay string "CTC, OncoTrail, METASTAT and Onconomics" is absent from patient-booklet.js.
+PASS — Onconomics-only assay list helper returns only: Onconomics Plus.
+PASS — Legacy display repair: Histone-deacetylase-dipeptide -> Histonedeacetylase-; normalized_name is retained for internal knowledge lookup.
+PASS — CD20 truncated section "Development and" -> "Development and differentiation of B cells into plasma cells".
+PASS — Missing panels are distinguished from tested-negative results: chemotherapy/conventional, MoAb/SMW and Additional tested-drug panels report "not included in this source extract" when their source rows are absent.
+PASS — Dedicated PDF/eBook Text-Layer Guard detects Unicode noncharacters after sanitization; ordinary ASCII hyphens are used for recovered separators.
+PASS — PDF print path restores live DOM text after printing; eBook open/download restores live DOM after blob creation; eBook beforeprint uses the same noncharacter sanitizer.
+PASS — v10.319 numeric source-truth data preserved. onconomics-source-truth.js differs from v10.320 only in BUILD text.
+PASS — John Doe Resistance Factors dictionary remains MDR1 10%, MRP1 70%, LRP 2%, GST 45%.
+PASS — John Doe Class I printed-label dictionary remains Artecin 30%, Bio D Mulsion NuMedica D3 15%, Frankincense 10%.
+
+Source-basis QA targets
+- RGCC source page 4: Histonedeacetylase- 65%; HDAC 60%; CXCR4 -30%.
+- RGCC source page 8: CD20 function/category = Development and differentiation of B cells into plasma cells.
+- Patient-specific source packet: Onconomics Plus present; OncoTrail and METASTAT absent.
+
+Test limitation
+- Full browser end-to-end regeneration of the 136-page PDF was not executed in this build environment. Runtime guards and source-level/unit checks were executed; regenerate the John Doe English Full Report in Chrome/Edge for final visual/PDF-text-layer acceptance.

@@ -1,0 +1,13 @@
+MIW v10.322 regression targets
+
+PASS targets
+- Project JavaScript syntax passes.
+- v10.321.1 ctcExecutiveSummary hotfix is preserved.
+- Histonedeacetylase- is rendered as exact source label; “dipeptide” is not rendered as source label.
+- CD20 full source category remains intact.
+- Boswellia Serratta is preserved as exact Report Summary spelling when stored source page 1 contains that spelling; normalized chart identity remains Boswellia Serrata.
+- Onconomics-only reports do not inject patient-result OncoTrail/METASTAT sections.
+- pdfTextLayerSafeValue removes U+FFFE/U+FFFF/FDD0-FDEF, soft hyphen and zero-width characters.
+- pdfTextLayerSafeValue converts breakable intra-word ASCII hyphens to U+2011 in print mode.
+- Exact source-label mode preserves literal source hyphens and uses nowrap CSS.
+- No Onconomics numeric threshold/value logic changed.

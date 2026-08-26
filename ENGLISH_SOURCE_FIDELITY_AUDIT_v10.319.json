@@ -1,0 +1,40 @@
+{
+  "build": "MIW v10.319 English Source Fidelity Guard",
+  "fixture": "Mr-John-Doe-Onconomics-Extracts-15-Jul-2024-en (1).pdf",
+  "report_date": "2024-07-15",
+  "ctc": {
+    "value": 2,
+    "unit": "cells/mL",
+    "source_page": 1
+  },
+  "report_summary": {
+    "over_expression": [
+      "IkB(a,b,c)",
+      "NFkB",
+      "HDAC",
+      "ANG 1"
+    ],
+    "down_regulation": [
+      "COX2",
+      "HSP90",
+      "HSP72"
+    ]
+  },
+  "resistance_factors": {
+    "MDR1": 10,
+    "MRP1": 70,
+    "LRP": 2,
+    "GST": 45
+  },
+  "natural_source_pages": {
+    "class_i": 9,
+    "class_ii": 10,
+    "class_iii": 10
+  },
+  "source_truth_expected_labels": 57,
+  "policy": {
+    "printed_label_over_bar_geometry": true,
+    "assay_presence_guard": true,
+    "english_visible_thai_export_block": true
+  }
+}

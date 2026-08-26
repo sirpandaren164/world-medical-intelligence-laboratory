@@ -1,0 +1,40 @@
+MIW v10.319 — English Source Fidelity Guard
+
+Purpose
+- Make English Patient Booklet output source-faithful and English-only.
+- Prevent assay/template content from appearing when that assay is not present in the stored source set.
+
+Fixed
+1. English-only Export Guard
+   - English Full Report / Clinical Summary / eBook are blocked if visible Thai text remains after localization.
+   - English generated dates use Gregorian/English formatting.
+2. Onconomics Report Summary Direction Guard
+   - Printed REPORT SUMMARY is source truth for Over expression and Down regulation.
+   - Parenthesized names such as IkB(a,b,c) remain one analyte.
+3. John Doe 15-Jul-2024 Printed-label Source Truth
+   - CTC: 2 cells/mL, source RGCC page 1/15.
+   - Over expression: IkB(a,b,c), NFkB, HDAC, ANG 1.
+   - Down regulation: COX2, HSP90, HSP72.
+   - Resistance Factors: MDR1 10%, MRP1 70%, LRP 2%, GST 45%.
+   - Natural Class I printed-label corrections include Artecin 30%, Bio D Mulsion NuMedica D3 15%, Frankincense 10%.
+4. Printed-label Guard
+   - Printed percentage labels override geometric bar estimates when a reliable label is available for the same chart slot.
+   - Geometric bar reading remains a fallback rather than overwriting printed source labels.
+5. Gene Direction Presentation
+   - Positive (>0), near-baseline (=0), and negative/down-regulated (<0) findings are separated.
+   - Negative values are no longer described as “prominent positive”.
+6. Assay Presence Guard
+   - METASTAT/OncoTrail summaries are rendered only when those source assays are actually present.
+7. CTC Provenance
+   - John Doe 15-Jul-2024 CTC provenance is repaired to RGCC source page 1, not page 2.
+8. Legacy database recovery
+   - Stored v10.318 John Doe Onconomics rows are source-truth corrected during booklet construction; re-upload is not required for the audited labels when the source report identity is available.
+
+Preserved
+- v10.318 Lab-vs-Pathology Guard and GAAD / AFP / PIVKA II handling.
+- v10.317 FoodPrint Catalog Fidelity Guard and prior FoodPrint source/provenance guards.
+- Full Report remains the primary export; Clinical Summary remains the optional compact export.
+
+Safety
+- Onconomics percentages remain assay-scale / ex-vivo or in-vitro findings and are not converted to clinical response probabilities.
+- Gene-expression values are not treated as mutation, amplification, fusion or IHC results.

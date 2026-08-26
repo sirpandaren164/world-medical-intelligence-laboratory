@@ -1,0 +1,22 @@
+MIW v10.321.1 — CTC Executive Options Hotfix
+
+Bug fixed
+- Fixes Patient Booklet crash: ReferenceError: options is not defined.
+- Root cause: ctcExecutiveSummary(model) referenced a non-local variable `options` when rendering the singular/plural report noun.
+- Corrected to use `model.options`, which is the language/options object already owned by the booklet model.
+
+Observed failure fixed
+- PatientBooklet-OpenLatest failed inside ctcExecutiveSummary before the booklet could render.
+- The fault occurred for an RGCC Onconomics patient after successful OCR/import and source recovery.
+
+Preserved from v10.321
+- Label & Assay Presence Fidelity Guard.
+- English-only hard gate and text-layer sanitizer.
+- Onconomics source-label/category fidelity.
+- Patient-specific assay presence.
+- John Doe numeric source-truth corrections (CTC, gene direction summary, Resistance Factors, Natural Substances).
+- FoodPrint guards and Lab-vs-Pathology/GAAD/PIVKA II support.
+
+Scope
+- No numeric parser logic was changed.
+- No Onconomics source-truth values were changed.

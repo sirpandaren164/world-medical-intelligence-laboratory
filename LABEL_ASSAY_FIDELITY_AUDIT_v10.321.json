@@ -1,0 +1,36 @@
+{
+  "build": "MIW v10.321 Label & Assay Presence Fidelity Guard",
+  "expected": {
+    "assays_present": [
+      "Onconomics Plus"
+    ],
+    "assays_absent": [
+      "OncoTrail",
+      "METASTAT"
+    ],
+    "source_label_65pct": "Histonedeacetylase-",
+    "forbidden_invented_label": "Histone-deacetylase-dipeptide",
+    "cd20_function": "Development and differentiation of B cells into plasma cells",
+    "ctc": {
+      "value": 2,
+      "unit": "cells/mL",
+      "source_page": 1
+    },
+    "resistance": {
+      "MDR1": 10,
+      "MRP1": 70,
+      "LRP": 2,
+      "GST": 45
+    }
+  },
+  "pdf_text_layer": {
+    "forbidden_codepoints": [
+      "U+FFFE",
+      "U+FFFF",
+      "U+FDD0–U+FDEF"
+    ],
+    "print_only_nonbreaking_hyphen": false,
+    "replacement_for_noncharacters": "ASCII hyphen (-)",
+    "ebook_beforeprint_sanitizer": true
+  }
+}

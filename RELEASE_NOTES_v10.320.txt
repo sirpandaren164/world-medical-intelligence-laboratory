@@ -1,0 +1,29 @@
+MIW v10.320 — English Residual Localization Repair
+
+Bug fixed
+- v10.319 correctly blocked English export when four visible Thai text nodes remained in the John Doe Onconomics-only booklet.
+- The four residual nodes originated in the Specialized Diagnostics / Executive Summary presentation layer, not in the source parser.
+
+Fixed presentation paths
+1. Specialized Diagnostics heading/subheading now render from the booklet language option.
+2. Precision Oncology / CTC card now localizes:
+   - report count
+   - source-item count
+   - assay-specific interpretation note
+3. Executive Summary subtitle now renders fully in English:
+   - General Laboratory: N latest results
+   - Specialized Diagnostics: N modules
+4. English Fidelity Guard remains active. It is NOT disabled or bypassed.
+5. Bug-report diagnostics now record the actual residual Thai text plus its element/class when a future localization leak is detected.
+
+Preserved from v10.319
+- John Doe source-truth audit and printed-label corrections.
+- REPORT SUMMARY over-expression/down-regulation guard.
+- Resistance Factors: MDR1 10%, MRP1 70%, LRP 2%, GST 45%.
+- Natural printed-label corrections: Artecin 30%, Bio D Mulsion NuMedica D3 15%, Frankincense 10%.
+- Assay Presence Guard and CTC page-1 provenance.
+- FoodPrint catalog/source/provenance guards.
+- Lab-vs-Pathology Guard + GAAD / AFP / PIVKA II support.
+
+Expected result
+- John Doe EN Full Report / Clinical Summary / eBook should pass the English Source Fidelity Guard instead of stopping at “4 visible Thai text node(s) remain”.
