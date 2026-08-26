@@ -1,5 +1,0 @@
-MIW v10.317 — FoodPrint Catalog Fidelity Guard + Provenance + Source Truth
-
-เปิด index.html ด้วย Chrome หรือ Edge
-Full Report เป็นค่าเริ่มต้น และ Clinical Summary เป็นตัวเลือกเสริม
-FoodPrint 200+ ใช้ verified 222-item source-position catalog เพื่อป้องกันชื่ออาหารเพี้ยนจาก OCR/column drift
