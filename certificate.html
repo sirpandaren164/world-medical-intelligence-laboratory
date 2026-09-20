@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Certificate · Hormone Therapy & Healthy Aging</title><link rel="stylesheet" href="app/style.css?v=20260920"></head>
+<body><div class="wrap">
+<div class="topbar no-print"><div class="brand"><div class="brandmark">WMC</div><div>Certificate of Completion<br><span class="small">Hormone Therapy & Healthy Aging</span></div></div><div class="nav"><a class="btn" href="index.html">Dashboard</a><a class="btn" href="verify.html">Verify Certificate</a></div></div>
+<div id="locked" class="card hidden"><h2>Certificate ยังไม่ปลดล็อก</h2><p>ต้องเรียนครบ 100% และผ่าน Final Exam อย่างน้อย 80%</p><a class="btn primary" href="index.html">กลับ Dashboard</a></div>
+<div id="nameGate" class="card hidden no-print"><h2>ข้อมูลสำหรับใบประกาศ</h2><div class="field"><label>ชื่อ–นามสกุลภาษาอังกฤษ</label><input id="gateName" placeholder="Full name in English"></div><div class="field"><label>ชื่อ–นามสกุลภาษาไทย (ไม่บังคับ)</label><input id="gateThaiName" placeholder="ชื่อ–นามสกุลภาษาไทย"></div><button class="btn primary" id="saveName">สร้างใบประกาศ</button></div>
+<div id="certWrap" class="hidden">
+<div class="certificate-shell green-gold-shell"><div class="certificate green-gold-certificate" id="certificate">
+  <div class="gg-corner gg-tl"></div><div class="gg-corner gg-br"></div>
+  <div class="gg-watermark gg-dna">↯</div><div class="gg-watermark gg-molecule">⬡</div>
+  <div class="gg-frame-inner"></div>
+  <div class="gg-header">
+    <img src="assets/branding/wmc_logo.png" class="gg-logo" alt="WMC">
+    <div class="gg-hospital">World Medical Hospital</div>
+    <div class="gg-hospital-th">โรงพยาบาลเวิลด์เมดิคอล</div>
+    <div class="gg-center">WMC Integrative Hormone Care</div>
+    <div class="gg-center-th">การศึกษาด้านการดูแลฮอร์โมนแบบบูรณาการ</div>
+  </div>
+  <div class="gg-main">
+    <div class="gg-title-line"><span class="gg-flourish">❧</span><h1>CERTIFICATE OF COMPLETION</h1><span class="gg-flourish">❧</span></div>
+    <div class="gg-title-th">ประกาศนียบัตรผ่านการอบรม</div>
+    <div class="gg-certify">This is to certify that</div><div class="gg-certify-th">ขอรับรองว่า</div>
+    <div class="gg-name" id="certName"></div>
+    <div class="gg-name-th" id="certThaiName"></div>
+    <div class="gg-completed">has successfully completed all requirements of the</div>
+    <div class="gg-course">“Hormone Therapy &amp; Healthy Aging E-Learning Program”</div>
+    <div class="gg-completed-th">ได้ผ่านการเรียนและประเมินผลตามเกณฑ์ที่กำหนดของหลักสูตรเรียบร้อยแล้ว</div>
+  </div>
+  <div class="gg-footer">
+    <div class="gg-signature-block">
+      <img src="assets/branding/signature_asawadech.png" class="gg-signature-img" alt="Signature">
+      <div class="gg-signature-line"></div>
+      <div class="gg-signatory">Asawadech Sanbua, M.D.</div>
+      <div class="gg-signatory-th">นพ. อัศวเดช แสนบัว</div>
+      <div class="gg-signature-divider">✦</div>
+      <div class="gg-role">Program Director / Authorized Signatory</div>
+      <div class="gg-role-th">ผู้รับรองหลักสูตร</div>
+    </div>
+    <div class="gg-verify-card">
+      <div class="gg-qr-wrap"><div id="qr"></div><div class="gg-scan">Scan to verify</div></div>
+      <div class="gg-verify-text"><b>Certificate<br>Verification</b><span id="certId"></span><span id="certDate"></span><span class="gg-score" id="certScore"></span></div>
+    </div>
+  </div>
+</div></div>
+<div class="no-print cert-actions"><button class="btn primary" id="pdfBtn">Download Certificate PDF</button><button class="btn" onclick="window.print()">Print / Save as PDF</button><a class="btn" id="verifyLink" href="verify.html">Verify Certificate</a></div>
+<div class="callout no-print" style="margin-top:14px">ใบประกาศประกอบด้วย Certificate ID และ QR สำหรับตรวจสอบข้อมูลใบประกาศ</div>
+</div></div>
+<script src="app/shared.js?v=20260920"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+async function hashRecord(x){const data=new TextEncoder().encode(x);const h=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,20)}
+function makeId(){const y=new Date().getFullYear();const a=new Uint8Array(4);crypto.getRandomValues(a);return 'HORM-'+y+'-'+[...a].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase()}
+async function createOrLoad(){let p=getProfile(),ex=getExam(),c=getCert();if(!courseComplete()||!ex.passed){locked.classList.remove('hidden');return}
+if(!p.name){nameGate.classList.remove('hidden');gateName.value='';gateThaiName.value=p.thaiName||'';saveName.onclick=()=>{const n=gateName.value.trim();if(!n)return alert('กรุณาใส่ชื่อ–นามสกุลภาษาอังกฤษ');p.name=n;p.thaiName=gateThaiName.value.trim();saveProfile(p);location.reload()};return}
+if(!c){const issued=new Date().toISOString();const id=makeId();const recordHash=await hashRecord([id,p.name,p.thaiName||'',issued,ex.bestScore].join('|'));c={id,name:p.name,thaiName:p.thaiName||'',organization:p.organization||'',score:ex.bestScore,issuedAt:issued,courseTitle:'Hormone Therapy & Healthy Aging E-Learning Program',recordHash};saveJSON(CERT_KEY,c)}
+certWrap.classList.remove('hidden');certName.textContent=c.name.toUpperCase();certThaiName.textContent=c.thaiName||'';certThaiName.style.display=c.thaiName?'block':'none';certDate.textContent=fmtDate(c.issuedAt);certScore.textContent='Final Assessment '+c.score+'%';certId.textContent=c.id;
+const u=new URL('verify.html',currentBase());u.searchParams.set('id',c.id);verifyLink.href=u.toString();new QRCode(document.getElementById('qr'),{text:u.toString(),width:112,height:112,colorDark:'#005b43',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+pdfBtn.onclick=async()=>{pdfBtn.disabled=true;pdfBtn.textContent='กำลังสร้าง PDF…';try{const canvas=await html2canvas(document.getElementById('certificate'),{scale:2.4,useCORS:true,backgroundColor:'#fffdf8'});const {jsPDF}=window.jspdf;const pdf=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});pdf.addImage(canvas.toDataURL('image/jpeg',.97),'JPEG',0,0,297,210);pdf.save('Hormone_Certificate_'+c.id+'.pdf')}catch(e){alert('สร้าง PDF อัตโนมัติไม่สำเร็จ กรุณาใช้ปุ่ม Print / Save as PDF แทน')}finally{pdfBtn.disabled=false;pdfBtn.textContent='Download Certificate PDF'}}}
+createOrLoad();
+</script></body></html>

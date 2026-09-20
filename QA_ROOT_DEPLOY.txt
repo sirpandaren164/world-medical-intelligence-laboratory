@@ -1,0 +1,5 @@
+Root-ready package QA
+Files: 322
+Local static refs checked: 32
+Missing required static refs: 0
+Note: ${preview} in course.html is a runtime template value, not a file path.

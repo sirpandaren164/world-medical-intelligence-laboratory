@@ -1,0 +1,2 @@
+Embedded real signature image into certificate.html and certificate_preview.html
+Signature asset: assets/branding/signature_asawadech.png

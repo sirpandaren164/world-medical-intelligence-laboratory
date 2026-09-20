@@ -1,0 +1,12 @@
+GitHub Production QA
+Modules: 8
+Lessons: 54
+Learning screens: 331
+Question bank: 32 (4 per module)
+Final exam: 25 randomized questions
+Pass mark: 80%
+Certificate PDF: enabled (jsPDF/html2canvas + print fallback)
+Certificate ID: enabled
+QR verification page: enabled
+Static public registry: certificates.json
+Missing required build files: 0
